@@ -1,0 +1,17 @@
+#g5-container {
+    #trash {
+        top: 30px;
+    }
+
+    .g5-lm-particles-picker {
+        .settings-block {
+            input:not(.settings-param-toggle):not(.g-keyvalue-input-key):not(.g-keyvalue-input-value):not([type="checkbox"]):not([type="radio"]) {
+                width: 250px;
+            }
+
+            &.search {
+                font-size: inherit;
+            }
+        }
+    }
+}
