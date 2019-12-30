@@ -1,0 +1,23 @@
+{% extends "forms/fields/input/selectize.html.twig" %}
+
+{% block global_attributes %}
+    {% set taxonomy = field.taxonomy|default('category') %}
+    {% set hide_empty = field.hide_empty|default('false') %}
+    {% set query_parameters = {
+        'taxonomy': taxonomy,
+        'hide_empty': hide_empty
+	} %}
+    {% set categories = gantry.platform.getCategories(query_parameters) %}
+    {% set Options = field.selectize.Options %}
+    {% set options = [] %}
+    {% if categories %}
+        {% for id,category in categories %}
+            {% set options = options|merge([{value: id, text: category}])  %}
+        {% endfor %}
+
+        {% set field = field|merge(field.selectize.Options|default({}))|merge({selectize: { Options: options }}) %}
+    {% endif %}
+
+    data-selectize="{{ (field.selectize is defined ? field.selectize|json_encode()|e('html_attr') : '') }}"
+    {{ parent() }}
+{% endblock %}
